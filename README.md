@@ -1,36 +1,20 @@
 # pump-rs
 
-bunch of pump.fun related utilities, centered around sniping new launches
-
-i think this is a flex, check [final run](https://github.com/piotrostr/pump-rs/blob/master/runs/final.txt), all verifiable on `FASTykZyyjVfhutuRzMMYbFbFacQpRnMzDguhWfWadbi`
+A collection of pump.fun related utilities, centered around sniping new launches.
 
 ## Journey
 
-this was a rabbit hole
-
-went from listening on pump.fun stream from the frontend API (avg ~5-10 slots),
-to using pumpportal API for data (avg 1-5 slots) to using a custom on-chain
-program with deadline control and deserializing raw shreds from Jito
-Shredstream (avg 0.5 slots over 100+ entries)
-
-putting this on halt and open-sourcing since the market is dead (as of 1st Sep)
-
-the shredstream webhook (`/v2/pump-buy/`) is currently private, I might
-open-source too but needs some more polishing before that:)
+This project evolved from listening on pump.fun stream from the frontend API (avg ~5-10 slots), to using pumpportal API for data (avg 1-5 slots), to using a custom on-chain program with deadline control and deserializing raw shreds from Jito Shredstream (avg 0.5 slots over 100+ entries).
 
 ## Features
 
-the profits of this bot stem from being faster than other snipers and dumping
-on them, have only caught one raydium seed (15x) in late July
+The profits of this bot stem from being faster than other snipers and dumping on them. There are some sniper bots that hold a token and sell later if it turns out to be a good one, but currently most launches fail to reach the bonding curve.
 
-there are some sniper bots (once profitable) that hold a token and sell later
-if it turns out to be a good one, but right now it is simply not worth it,
-since 99% of launches fail to reach the bonding curve (if not 99.9%)
+Strategy for the seller service is to wait for the confirmation of transaction to arrive through the PubSub client and sell straight-away.
 
-strategy for `seller-service` for this one is to wait for the confirmation of
-tx to arrive through the PubSub client and sell straight-away
+## Usage
 
-```txt
+```bash
 Usage: pump-rs <COMMAND>
 
 Commands:
@@ -57,16 +41,17 @@ Commands:
   bump-pump
   sweep-pump
   buy-pump-token
-  help                  Print this message or the help of the given subcommand(s)
-
-Options:
-  -h, --help     Print help
-  -V, --version  Print version
+  help
 ```
 
-Disclaimer: this is provided as-is, it is unlikely to be profitable for you,
-this runs on mainnet and it can cause losses
+## Disclaimer
 
-## License
+This is provided as-is and runs on mainnet. It can cause losses and is unlikely to be profitable for most users.
 
-MIT
+## Project Structure
+
+- `src/` - Source code
+- `runs/` - Run data and logs
+- `docker-compose.yaml` - Docker configuration
+- `Cargo.toml` - Rust dependencies
+- `README.md` - Documentation
